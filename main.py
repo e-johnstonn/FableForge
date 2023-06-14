@@ -47,10 +47,6 @@ def main():
 
 
 
-def save_to_deep_lake(book):
-    st.session_state['saving'] = True
-    SaveToDeepLake(book, dataset_path=dataset_path)
-    st.session_state['saved'] = True
 
 
 

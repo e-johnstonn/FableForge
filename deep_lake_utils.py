@@ -5,11 +5,13 @@ import deeplake
 
 dataset_path = os.getenv('DATASET_PATH')
 
+os.environ['ACTIVELOOP_TOKEN'] = os.getenv('ACTIVELOOP_TOKEN')
+
 class SaveToDeepLake:
     def __init__(self, buildbook_instance, name=None, dataset_path=dataset_path):
         self.dataset_path = dataset_path
         try:
-            self.ds = deeplake.load(dataset_path)
+            self.ds = deeplake.load(dataset_path, read_only=False)
             self.loaded = True
         except:
             self.ds = deeplake.empty(dataset_path)
