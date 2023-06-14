@@ -24,7 +24,7 @@ def main():
     user_input = st.text_input("Enter a prompt to generate a picture book based off of:", max_chars=70)
     style = st.selectbox("Select a style for your picture book:", [key for key in STYLES.keys()])
     model = st.radio("Select a model to use", ['gpt-3.5-turbo', 'gpt-4'])
-    deep_lake = st.checkbox("Save to Deep Lake?")
+    # deep_lake = st.checkbox("Save to Deep Lake?")
     if 'not_saving' not in st.session_state:
         st.session_state['not_saving'] = True
     if st.button('Generate!') and user_input and st.session_state['not_saving']:
@@ -37,13 +37,13 @@ def main():
                                key='download_button')
             st.write('Your book has been generated! Click the download button to download it. It is also saved'
                      'in the project directory.')
-        if deep_lake and st.session_state['not_saving']:
-            st.session_state['not_saving'] = False
-            with st.spinner('Saving to DeepLake...'):
-                SaveToDeepLake(build_book, dataset_path=dataset_path).fill_dataset()
-                st.write(
-                    f'Your images and SD prompts have been saved to Deep Lake! You can view it here:' + "https:/app.activeloop.ai/ethanjohnston/sd_images_and_prompts_db")
-                st.session_state['not_saving'] = True
+        # if deep_lake and st.session_state['not_saving']:
+        #     st.session_state['not_saving'] = False
+        #     with st.spinner('Saving to DeepLake...'):
+        #         SaveToDeepLake(build_book, dataset_path=dataset_path).fill_dataset()
+        #         st.write(
+        #             f'Your images and SD prompts have been saved to Deep Lake! You can view it here:' + "https:/app.activeloop.ai/ethanjohnston/sd_images_and_prompts_db")
+        #         st.session_state['not_saving'] = True
 
 
 
