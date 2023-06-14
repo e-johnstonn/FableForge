@@ -39,10 +39,9 @@ def main():
         if deep_lake and st.session_state['not_saving']:
             st.session_state['not_saving'] = False
             with st.spinner('Saving to DeepLake...'):
-                saved = SaveToDeepLake(build_book, dataset_path=dataset_path)
-                saved.fill_dataset()
+                SaveToDeepLake(build_book, dataset_path=dataset_path).fill_dataset()
                 st.write(
-                    f'Your images and SD prompts have been saved to Deep Lake! You can view it here: {saved.dataset_path}')
+                    f'Your images and SD prompts have been saved to Deep Lake! You can view it here:' + "https:/app.activeloop.ai/ethanjohnston/sd_images_and_prompts_db")
                 st.session_state['not_saving'] = True
 
 
