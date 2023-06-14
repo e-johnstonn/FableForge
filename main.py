@@ -17,6 +17,7 @@ load_dotenv('keys.env')
 
 dataset_path = os.getenv('DATASET_PATH')
 
+os.environ['ACTIVELOOP_TOKEN'] = os.getenv('ACTIVELOOP_TOKEN')
 
 def main():
     st.title("Picture Book Generator")
