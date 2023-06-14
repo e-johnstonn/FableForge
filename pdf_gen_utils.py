@@ -148,7 +148,6 @@ def split_paragraph(paragraph, length):
     return result
 
 
-build_title_page('images/1.png', 'The Adventures of Sherlock Homes', 'test.pdf')
 
 
 def build_pdf(pages, result_filename):
