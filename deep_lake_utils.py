@@ -5,7 +5,7 @@ import deeplake
 
 dataset_path = os.getenv('DATASET_PATH')
 
-token = os.getenv('ACTIVELOOP_TOKEN')
+token = "eyJhbGciOiJIUzUxMiIsImlhdCI6MTY4NTY1NzEyNCwiZXhwIjoxNjg2MzQ4MzAxfQ.eyJpZCI6ImV0aGFuam9obnN0b24ifQ.YAnQhstbu8DZkYBrfVaVbpbpi1vaqred2VtH3-RnCNBMQS-JgjFhtVajVfdPULS4113D6U64LL-Y13EpN27bbw"
 
 class SaveToDeepLake:
     def __init__(self, buildbook_instance, name=None, dataset_path=dataset_path):
