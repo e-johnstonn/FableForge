@@ -1,7 +1,12 @@
 import re
+from concurrent.futures import ThreadPoolExecutor
+
+from dotenv import load_dotenv
 from langchain.chat_models import ChatOpenAI
 from langchain.schema import HumanMessage
 import replicate
+
+import json
 
 
 from prompts import *
@@ -10,9 +15,10 @@ import requests
 
 import streamlit as st
 
+load_dotenv('keys.env')
+
 
 class BuildBook:
-    sd_llm_prompt = SD_PROMPTS_PROMPT
     book_text_prompt = BOOK_TEXT_PROMPT
 
     def __init__(self, model_name, input_text, style):
@@ -30,11 +36,11 @@ class BuildBook:
 
         self.progress_steps += 2
         self.progress.progress(self.progress_steps / self.total_progress_steps, "Generating SD prompts...")
-        self.sd_prompts = self.get_prompts()
 
         self.pages_list = self.get_list_from_text(self.book_text)
-        self.prompts_list = self.get_list_from_text(self.sd_prompts)
-        self.prompts_list = [f'{prompt}, completely in the style of {self.style}'.strip().replace('\n', '') for prompt in self.prompts_list]
+
+        self.sd_prompts_list = self.get_prompts()
+
 
         self.source_files = self.download_images()
         self.list_of_tuples = self.create_list_of_tuples()
@@ -47,8 +53,26 @@ class BuildBook:
         return pages
 
     def get_prompts(self):
-        prompts = self.chat([HumanMessage(content=f'{self.sd_llm_prompt} --- Book: {self.book_text} --- Remember to generate scenery, no plot/characters'
-                                                  f'Generated prompts in the style of {self.style}: ')]).content
+        base_atmosphere = self.chat([HumanMessage(content=f'Generate a visual description of the overall lightning/atmosphere of this book using the function.'
+                                                          f'{self.book_text}')], functions=get_lighting_and_atmosphere_function)
+        print(base_atmosphere)
+        print(base_atmosphere.additional_kwargs)
+        base_dict = func_json_to_dict(base_atmosphere)
+
+        summary = self.chat([HumanMessage(content=f'Generate a concise summary of the setting and visual details of the book')]).content
+
+        base_dict['summary_of_book_visuals'] = summary
+
+        prompt_list = []
+
+
+        for page in self.pages_list:
+            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. Passage: {page}')], functions=get_visual_description_function)
+            prompt_list.append(func_json_to_dict(prompt))
+
+        prompts = prompt_combiner(prompt_list, base_dict, self.style)
+
+
         return prompts
 
     def get_list_from_text(self, text):
@@ -57,27 +81,28 @@ class BuildBook:
         return new_list
 
     def create_images(self):
-        if len(self.pages_list) == len(self.prompts_list):
-            image_urls = []
-            for i in range(len(self.prompts_list)): # temp limit
-                print(f'{self.prompts_list[i]} is the prompt for page {i+1}')
-                output = replicate.run(
-                    "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
-                    input={"prompt": self.prompts_list[i],
-                           "negative_prompt": "photorealistic, photograph, boring, bad anatomy, blurry, pixelated, obscure, unnatural colors, poor lighting, dull, unclear, gross,"
-                                              "disfigured, wrong anatomy, weird eyes, creepy, disgusting, text, words, letters,"
-                                              "photo, RAW image"},
-                )
-                image_urls.append(output[0])
-                self.progress_steps += 1
-                self.progress.progress(self.progress_steps / self.total_progress_steps, f"Generating image {i+1}...")
-            return image_urls
-        else:
+        if len(self.pages_list) != len(self.sd_prompts_list):
             print(len(self.pages_list))
             print(len(self.prompts_list))
             print(self.pages_list)
             print(self.prompts_list)
             raise 'Pages and Prompts do not match'
+
+        def generate_image(i, prompt):
+            print(f'{prompt} is the prompt for page {i + 1}')
+            output = replicate.run(
+                "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
+                input={"prompt": prompt,
+                       "negative_prompt": "photorealistic, photograph, boring, bad anatomy, blurry, pixelated, obscure, unnatural colors, poor lighting, dull, unclear, gross,"
+                                          "disfigured, wrong anatomy, weird eyes, creepy, disgusting, text, words, letters,"
+                                          "photo, RAW image"},
+            )
+            return output[0]
+
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            image_urls = list(executor.map(generate_image, range(len(self.sd_prompts_list)), self.sd_prompts_list))
+
+        return image_urls
 
     def download_images(self):
         image_urls = self.create_images()
@@ -99,4 +124,21 @@ class BuildBook:
         return list(zip(files, text))
 
 
+def func_json_to_dict(response):
+    return json.loads(response.additional_kwargs['function_call']['arguments'])
+
+
+def prompt_combiner(prompt_list, base_dict, style):
+    prompts = []
+    for i, prompt in enumerate(prompt_list):
+        entry = f"{prompt['setting']}, {prompt['time_of_day']}, {prompt['weather']}, {prompt['key_elements']}, {prompt['specific_details']}, " \
+                f"{base_dict['lighting']}, {base_dict['mood']}, {base_dict['color_palette']}, in the style of {style}"
+        prompts.append(entry)
+    print(prompts)
+    return prompts
+
+def process_page(chat, page, base_dict):
+    prompt = chat([HumanMessage(content=f'General book info: {base_dict}. Passage: {page}')],
+                      functions=get_visual_description_function)
+    return func_json_to_dict(prompt)
 
