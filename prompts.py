@@ -12,7 +12,7 @@ Format like: Page 0: {title}, Page 1: {text}, etc.
 
 get_visual_description_function = [{
     'name': 'get_passage_setting',
-    'description': 'Generate and describe the visuals of a passage in a book. Visuals only.',
+    'description': 'Generate and describe the visuals of a passage in a book. Visuals only, no characters, plot, or people.',
     'parameters': {
         'type': 'object',
         'properties': {
