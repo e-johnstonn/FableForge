@@ -65,10 +65,13 @@ class BuildBook:
 
         prompt_list = []
 
+        def generate_prompt(page, base_dict):
+            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. Passage: {page}')],
+                               functions=get_visual_description_function)
+            return func_json_to_dict(prompt)
 
-        for page in self.pages_list:
-            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. Passage: {page}')], functions=get_visual_description_function)
-            prompt_list.append(func_json_to_dict(prompt))
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            prompt_list = list(executor.map(generate_prompt, self.pages_list, [base_dict] * len(self.pages_list)))
 
         prompts = prompt_combiner(prompt_list, base_dict, self.style)
 

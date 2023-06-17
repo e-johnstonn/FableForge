@@ -1,7 +1,7 @@
 BOOK_TEXT_PROMPT = """
-Write a 3-6 page children's picture book. Each page should have 2-3 sentences. Sentences should rhyme.
+Write a 3-6 page children's picture book. Each page should have 2-3 sentences. It should be rhyming.
 We will be adding pictures of the environment/scenery for each page, so pick a pretty setting/place. Limit of 7 pages,
-do not exceed 3 sentences per page. DO NOT EXCEED 7 PAGES.
+do not exceed 3 sentences per page. Do not exceed 7 pages.
 
 Before the story begins, write a "Page 0: {title}" page. The title should be the name of the book, no more than four words.
 
@@ -34,7 +34,7 @@ get_visual_description_function = [{
             },
             'specific_details': {
                 'type': 'string',
-                'description': 'The specific **visual** details of the passage, eg moonlight',
+                'description': 'The specific visual details of the passage, eg moonlight',
             }
         },
         'required': ['setting', 'time_of_day', 'weather', 'key_elements', 'specific_details']

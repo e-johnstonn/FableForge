@@ -179,7 +179,6 @@ def build_pdf(pages, result_filename):
     for temp_file in pdf_files:
         os.remove(temp_file)
     os.remove('temp.jpg')
-    print('All done')
     return result_filename
 
 

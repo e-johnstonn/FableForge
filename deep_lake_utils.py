@@ -1,5 +1,4 @@
 import os
-import uuid
 
 import deeplake
 from dotenv import load_dotenv
@@ -18,11 +17,6 @@ class SaveToDeepLake:
 
         self.prompt_list = buildbook_instance.sd_prompts_list
         self.images = buildbook_instance.source_files
-
-        if name is None:
-            self.name = str(uuid.uuid4())
-        else:
-            self.name = name
 
     def fill_dataset(self):
         print('filling dataset')
