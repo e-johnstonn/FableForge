@@ -1,12 +1,11 @@
 import os
 
 from dotenv import load_dotenv
-
 import streamlit as st
+
 from api_utils import BuildBook
 from deep_lake_utils import SaveToDeepLake
 from pdf_gen_utils import build_pdf
-
 
 STYLES = {
             'Impressionism': 'Monet, impressionist art style, loose brushstrokes, vibrant colors, painted, painted light',
@@ -20,9 +19,7 @@ STYLES = {
 
 
 load_dotenv('keys.env')
-
 dataset_path = os.getenv('DATASET_PATH')
-
 
 
 def main():
@@ -55,11 +52,6 @@ def main():
                 except:
                     st.write('There was an error saving to Deep Lake. Ensure your API key and dataset path are correct, then try again.')
                     st.session_state['not_saving'] = True
-
-
-
-
-
 
 
 if __name__ == '__main__':
