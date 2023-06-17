@@ -31,20 +31,4 @@ class SaveToDeepLake:
             self.ds.append({'prompts': prompt, 'images': deeplake.read(self.images[i])})
 
 
-class TestingClass:
-    def __init__(self):
-        self.sd_prompts_list = ['ksg', 'Prompt 4122', 'Prompt 214123']
-        self.source_files = ['images/1.png', 'images/2.png', 'images/3.png']
 
-
-
-# test = "hub://ethanjohnston/test"
-# # p = SaveToDeepLake(TestingClass(), dataset_path=test, token=activeloop_token)
-#
-# os.environ['ACTIVELOOP_TOKEN'] = os.getenv('ACTIVELOOP_TOKEN')
-#
-# print(os.getenv('ACTIVELOOP_TOKEN'))
-#
-# s = deeplake.load(test)
-#
-# s.append({'test': 'test'})
