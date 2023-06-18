@@ -10,12 +10,21 @@ https://github.com/e-johnstonn/FableForge/assets/30129211/9657b0de-ac80-46d1-bc3
 ## 🛠 Install
 1. Clone the repository
 2. Install requirements.txt
-3. Set up your OpenAI and Replicate API keys in `keys.env`
-4. To save your images and prompts, set up your Activeloop Deep Lake token and dataset path in `keys.env`
+3. Set up your OpenAI and Replicate API keys in `keys.env` - More on this below
+4. To save your images and prompts, set up your Activeloop Deep Lake token and dataset path in `keys.env` - More on this below
 5. Run `streamlit run main.py` to start the app!
 
+
+## 🧠 Deep Lake Setup
+During the creation of this project, I used Deep Lake to store the generated pictures and prompts in the cloud, as it makes it easy to work with multiple modalities of data (image/text), and displays them in a web UI. To set this up yourself, go to the [Deep Lake website](https://www.activeloop.ai/) and make an account. Once logged in, you can click "Train deep learning models", then "Create dataset", which will guide you through getting an API token and dataset link. Put the token and dataset path in the `keys.env` file and you're good to go.
+
+## 🖼️ Replicate Setup
+A Replicate API key is necessary for this app. To get one, go to the [Replicate website](https://replicate.com/) and create an account, then take your API key and put it in `keys.env`. Replicate provides free image generation for new users. 
+
+
 ## Improvements
-- This demo is currently set up to use the Replicate API for image generation. However, for best results, connect it to your own Stable Diffusion setup (local or cloud-based) with a custom model/LoRA specific to your use case. 
+- This demo uses Replicate for image generation due to its ease of use. Connect it to your own Stable Diffusion setup (local or cloud-based) for better results. I recommend some combination of [Diffusers](https://github.com/huggingface/diffusers) and [FastAPI](https://github.com/tiangolo/fastapi) as a starting point.
+
 
 ## License
 [MIT License](LICENSE)
