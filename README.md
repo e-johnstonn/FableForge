@@ -4,6 +4,8 @@
 
 Generate a picture book from a single prompt using [OpenAI's new function calling](https://openai.com/blog/function-calling-and-other-api-updates) and [Replicate's API](https://replicate.com/) for Stable Diffusion. Store all your generated images and corresponding prompts in [Deep Lake](https://www.activeloop.ai/). Check `example.pdf` or watch the video below for a peek at the output. 
 
+Built with [LangChain](https://github.com/hwchase17/langchain), [Deep Lake](https://www.deeplake.ai/), and [Replicate](https://replicate.com/).
+
 ## :tv: Demo
 https://github.com/e-johnstonn/FableForge/assets/30129211/9657b0de-ac80-46d1-bc30-34759b601498
 
