@@ -12,29 +12,29 @@ Format like: Page 0: {title}, Page 1: {text}, etc. Do not write anything else.
 
 get_visual_description_function = [{
     'name': 'get_passage_setting',
-    'description': 'Generate and describe the visuals of a passage in a book. Visuals only, no characters, plot, or people.',
+    'description': 'Generate and describe the visuals of a passage in a book. Visuals only, no characters, plot, or people. Highly detailed',
     'parameters': {
         'type': 'object',
         'properties': {
             'setting': {
                 'type': 'string',
-                'description': 'The visual setting of the passage, e.g. a green forest',
+                'description': 'The detailed visual setting of the passage, e.g. a lush green forest',
             },
             'time_of_day': {
                 'type': 'string',
-                'description': 'The time of day of the passage, e.g. nighttime, daytime. If unknown, leave blank.',
+                'description': 'The detailed time of day of the passage, e.g. nighttime, daytime. If unknown, leave blank.',
             },
             'weather': {
                 'type': 'string',
-                'description': 'The weather of the passage, eg. rain. If unknown, leave blank.',
+                'description': 'The detailed weather of the passage, eg. heavy rain with dark clouds. If unknown, leave blank.',
             },
             'key_elements': {
                 'type': 'string',
-                'description': 'The key visual elements of the passage, eg tall trees',
+                'description': 'The detailed key visual elements of the passage, eg tall towering trees with thick trunks. If unknown, leave blank',
             },
             'specific_details': {
                 'type': 'string',
-                'description': 'The specific visual details of the passage, eg moonlight',
+                'description': 'The detailed specific visual details of the passage, eg moonlight shining through the trees.If unknown, leave blank',
             }
         },
         'required': ['setting', 'time_of_day', 'weather', 'key_elements', 'specific_details']
@@ -43,7 +43,7 @@ get_visual_description_function = [{
 
 get_lighting_and_atmosphere_function = [{
     'name': 'get_lighting_and_atmosphere',
-    'description': 'Generate a visual description of the overall atmosphere and color palette of a book',
+    'description': 'Generate a  highly detailed visual description of the overall atmosphere and color palette of a book',
     'parameters': {
         'type': 'object',
         'properties': {

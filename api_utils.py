@@ -64,8 +64,8 @@ class BuildBook:
         base_dict['summary_of_book_visuals'] = summary
 
         def generate_prompt(page, base_dict):
-            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. Passage: {page}. Infer details about passage if they are missing, use'
-                                                     f' the general book info as a base. Generate a visual description of the passage using the function.')],
+            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. General style: {self.style} Passage: {page}. Infer details about passage if they are missing, use'
+                                                     f' the general book info and style as a base. Generate a visual description of the passage using the function.')],
                                functions=get_visual_description_function)
             return func_json_to_dict(prompt)
 
