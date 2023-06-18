@@ -22,19 +22,19 @@ get_visual_description_function = [{
             },
             'time_of_day': {
                 'type': 'string',
-                'description': 'The detailed time of day of the passage, e.g. nighttime, daytime. If unknown, leave blank.',
+                'description': 'The detailed time of day of the passage, e.g. nighttime, daytime.',
             },
             'weather': {
                 'type': 'string',
-                'description': 'The detailed weather of the passage, eg. heavy rain with dark clouds. If unknown, leave blank.',
+                'description': 'The detailed weather of the passage, eg. heavy rain with dark clouds.',
             },
             'key_elements': {
                 'type': 'string',
-                'description': 'The detailed key visual elements of the passage, eg tall towering trees with thick trunks. If unknown, leave blank',
+                'description': 'The detailed key visual elements of the passage, eg tall towering trees with thick trunks. ',
             },
             'specific_details': {
                 'type': 'string',
-                'description': 'The detailed specific visual details of the passage, eg moonlight shining through the trees.If unknown, leave blank',
+                'description': 'The detailed specific visual details of the passage, eg moonlight shining through the trees.',
             }
         },
         'required': ['setting', 'time_of_day', 'weather', 'key_elements', 'specific_details']
