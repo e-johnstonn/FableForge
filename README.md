@@ -21,7 +21,7 @@ During the creation of this project, I used Deep Lake to store the generated pic
 ## 🖼️ Replicate Setup
 A Replicate API key is necessary for this app. To get one, go to the [Replicate website](https://replicate.com/) and create an account, then take your API key and put it in `keys.env`. Replicate provides free image generation for new users. 
 
-## Architecture
+## 📐Architecture
 
 ![architecture](https://github.com/e-johnstonn/FableForge/assets/30129211/54dbaa98-5a89-4af4-8ff2-9640a40e773c)
 
