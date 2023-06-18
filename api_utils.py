@@ -64,8 +64,8 @@ class BuildBook:
         base_dict['summary_of_book_visuals'] = summary
 
         def generate_prompt(page, base_dict):
-            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. Passage: {page}. Infer details about passage if they are missing, '
-                                                     f'use function with inferred detailsm as if you were illustrating the passage.')],
+            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. Passage: {page}. Infer details about passage if they are missing, use'
+                                                     f' the general book info as a base. Generate a visual description of the passage using the function.')],
                                functions=get_visual_description_function)
             return func_json_to_dict(prompt)
 
@@ -133,7 +133,7 @@ def func_json_to_dict(response):
 def prompt_combiner(prompt_list, base_dict, style):
     prompts = []
     for i, prompt in enumerate(prompt_list):
-        entry = f"{prompt['setting']}, {prompt['time_of_day']}, {prompt['weather']}, {prompt['key_elements']}, {prompt['specific_details']}, " \
+        entry = f"{base_dict['base_setting']}, {prompt['setting']}, {prompt['time_of_day']}, {prompt['weather']}, {prompt['key_elements']}, {prompt['specific_details']}, " \
                 f"{base_dict['lighting']}, {base_dict['mood']}, {base_dict['color_palette']}, in the style of {style}"
         prompts.append(entry)
     print(prompts)

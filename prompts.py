@@ -6,7 +6,7 @@ do not exceed 3 sentences per page. Do not exceed 7 pages.
 Before the story begins, write a "Page 0: {title}" page. The title should be the name of the book, no more than four words.
 
 
-Format like: Page 0: {title}, Page 1: {text}, etc.
+Format like: Page 0: {title}, Page 1: {text}, etc. Do not write anything else. 
 """
 
 
@@ -18,7 +18,7 @@ get_visual_description_function = [{
         'properties': {
             'setting': {
                 'type': 'string',
-                'description': 'The visual setting of the passage, e.g. a green forest in the pacific northwest',
+                'description': 'The visual setting of the passage, e.g. a green forest',
             },
             'time_of_day': {
                 'type': 'string',
@@ -47,6 +47,10 @@ get_lighting_and_atmosphere_function = [{
     'parameters': {
         'type': 'object',
         'properties': {
+            'base_setting': {
+                'type': 'string',
+                'description': 'The base setting of the book, eg. ancient Rome, a forest in Washington, space',
+            },
             'lighting': {
                 'type': 'string',
                 'description': 'The lighting atmosphere of the book, eg. cheerful atmosphere',
@@ -60,6 +64,6 @@ get_lighting_and_atmosphere_function = [{
                 'description': 'The color palette of the book, eg. bright and vivid color palette',
             },
         },
-        'required': ['lighting', 'mood', 'color_palette']
+        'required': ['base_setting', 'lighting', 'mood', 'color_palette']
     }
 }]
