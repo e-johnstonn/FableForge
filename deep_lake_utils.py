@@ -19,15 +19,10 @@ class SaveToDeepLake:
         self.images = buildbook_instance.source_files
 
     def fill_dataset(self):
-        print('filling dataset')
         if not self.loaded:
-            print('creating tensors')
             self.ds.create_tensor('prompts', htype='text')
             self.ds.create_tensor('images', htype='image', sample_compression='png')
-        print('appending')
-        print(self.prompt_list)
         for i, prompt in enumerate(self.prompt_list):
-            print(i)
             self.ds.append({'prompts': prompt, 'images': deeplake.read(self.images[i])})
 
 

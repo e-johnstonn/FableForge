@@ -55,8 +55,6 @@ class BuildBook:
     def get_prompts(self):
         base_atmosphere = self.chat([HumanMessage(content=f'Generate a visual description of the overall lightning/atmosphere of this book using the function.'
                                                           f'{self.book_text}')], functions=get_lighting_and_atmosphere_function)
-        print(base_atmosphere)
-        print(base_atmosphere.additional_kwargs)
         base_dict = func_json_to_dict(base_atmosphere)
 
         summary = self.chat([HumanMessage(content=f'Generate a concise summary of the setting and visual details of the book')]).content
@@ -85,10 +83,6 @@ class BuildBook:
 
     def create_images(self):
         if len(self.pages_list) != len(self.sd_prompts_list):
-            print(len(self.pages_list))
-            print(len(self.prompts_list))
-            print(self.pages_list)
-            print(self.prompts_list)
             raise 'Pages and Prompts do not match'
 
         def generate_image(i, prompt):
@@ -137,7 +131,6 @@ def prompt_combiner(prompt_list, base_dict, style):
         entry = f"{prompt['base_setting']}, {prompt['setting']}, {prompt['time_of_day']}, {prompt['weather']}, {prompt['key_elements']}, {prompt['specific_details']}, " \
                 f"{base_dict['lighting']}, {base_dict['mood']}, {base_dict['color_palette']}, in the style of {style}"
         prompts.append(entry)
-    print(prompts)
     return prompts
 
 def process_page(chat, page, base_dict):
