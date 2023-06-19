@@ -7,7 +7,10 @@ Generate a picture book from a single prompt using [OpenAI's new function callin
 Built with [LangChain](https://github.com/hwchase17/langchain), [Deep Lake](https://www.deeplake.ai/), and [Replicate](https://replicate.com/).
 
 ## :tv: Demo
-https://github.com/e-johnstonn/FableForge/assets/30129211/9657b0de-ac80-46d1-bc30-34759b601498
+
+
+https://github.com/e-johnstonn/FableForge/assets/30129211/f9523905-342e-4a33-914d-acd13bd168ec
+
 
 ## 🛠 Install
 1. Clone the repository
