@@ -64,9 +64,9 @@ class BuildBook:
         base_dict['summary_of_book_visuals'] = summary
 
         def generate_prompt(page, base_dict):
-            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. General style: {self.style} Passage: {page}. Infer details about passage if they are missing, use'
-                                                     f' the general book info and style as a base. Generate a visual description of the passage using the function.'
-                                                     f'Fill all parameters with guessed/assumed values if they are missing.')],
+            prompt = self.chat([HumanMessage(content=f'General book info: {base_dict}. General style: {self.style} Passage: {page}.'
+                                                     f' Generate a visual description of the passage using the function.'
+                                                     f'Creatively fill all parameters with guessed/assumed values if they are missing.')],
                                functions=get_visual_description_function)
             return func_json_to_dict(prompt)
 
@@ -95,10 +95,10 @@ class BuildBook:
             print(f'{prompt} is the prompt for page {i + 1}')
             output = replicate.run(
                 "stability-ai/stable-diffusion:db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf",
-                input={"prompt": prompt,
-                       "negative_prompt": "photorealistic, photograph, boring, bad anatomy, blurry, pixelated, obscure, unnatural colors, poor lighting, dull, unclear, gross,"
-                                          "disfigured, wrong anatomy, weird eyes, creepy, disgusting, text, words, letters,"
-                                          "photo, RAW image"},
+                input={"prompt": 'art,' + prompt,
+                       "negative_prompt": "photorealistic, photograph, bad anatomy, blurry, gross,"
+                                          "weird eyes, creepy, text, words, letters, realistic"
+                                          },
             )
             return output[0]
 
@@ -134,7 +134,7 @@ def func_json_to_dict(response):
 def prompt_combiner(prompt_list, base_dict, style):
     prompts = []
     for i, prompt in enumerate(prompt_list):
-        entry = f"{base_dict['base_setting']}, {prompt['setting']}, {prompt['time_of_day']}, {prompt['weather']}, {prompt['key_elements']}, {prompt['specific_details']}, " \
+        entry = f"{prompt['base_setting']}, {prompt['setting']}, {prompt['time_of_day']}, {prompt['weather']}, {prompt['key_elements']}, {prompt['specific_details']}, " \
                 f"{base_dict['lighting']}, {base_dict['mood']}, {base_dict['color_palette']}, in the style of {style}"
         prompts.append(entry)
     print(prompts)

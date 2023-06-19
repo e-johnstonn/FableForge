@@ -1,5 +1,5 @@
 BOOK_TEXT_PROMPT = """
-Write a 3-6 page children's picture book. Each page should have 2-3 sentences. It should be rhyming.
+Write an engaging, great 3-6 page children's picture book. Each page should have 2-3 sentences. There should be rhymes.
 We will be adding pictures of the environment/scenery for each page, so pick a pretty setting/place. Limit of 7 pages,
 do not exceed 3 sentences per page. Do not exceed 7 pages.
 
@@ -16,13 +16,17 @@ get_visual_description_function = [{
     'parameters': {
         'type': 'object',
         'properties': {
+            'base_setting': {
+                'type': 'string',
+                'description': 'The base setting of the passage, e.g. ancient Rome, Switzerland, etc.',
+            },
             'setting': {
                 'type': 'string',
-                'description': 'The detailed visual setting of the passage, e.g. a lush green forest',
+                'description': 'The detailed visual setting of the passage, e.g. a a snowy mountain village',
             },
             'time_of_day': {
                 'type': 'string',
-                'description': 'The detailed time of day of the passage, e.g. nighttime, daytime.',
+                'description': 'The detailed time of day of the passage, e.g. nighttime, daytime, dawn.',
             },
             'weather': {
                 'type': 'string',
@@ -30,14 +34,14 @@ get_visual_description_function = [{
             },
             'key_elements': {
                 'type': 'string',
-                'description': 'The detailed key visual elements of the passage, eg tall towering trees with thick trunks. ',
+                'description': 'The detailed key visual elements of the passage, eg colorful houses, a church, and a lake. ',
             },
             'specific_details': {
                 'type': 'string',
-                'description': 'The detailed specific visual details of the passage, eg moonlight shining through the trees.',
+                'description': 'The detailed specific visual details of the passage, eg lake reflecting the sky.',
             }
         },
-        'required': ['setting', 'time_of_day', 'weather', 'key_elements', 'specific_details']
+        'required': ['base_setting', 'setting', 'time_of_day', 'weather', 'key_elements', 'specific_details']
     }
 }]
 
@@ -47,10 +51,6 @@ get_lighting_and_atmosphere_function = [{
     'parameters': {
         'type': 'object',
         'properties': {
-            'base_setting': {
-                'type': 'string',
-                'description': 'The base setting of the book, eg. ancient Rome, a forest in Washington, space',
-            },
             'lighting': {
                 'type': 'string',
                 'description': 'The lighting atmosphere of the book, eg. cheerful atmosphere',
@@ -64,6 +64,6 @@ get_lighting_and_atmosphere_function = [{
                 'description': 'The color palette of the book, eg. bright and vivid color palette',
             },
         },
-        'required': ['base_setting', 'lighting', 'mood', 'color_palette']
+        'required': ['lighting', 'mood', 'color_palette']
     }
 }]
