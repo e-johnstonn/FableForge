@@ -8,15 +8,14 @@ from deep_lake_utils import SaveToDeepLake
 from pdf_gen_utils import build_pdf
 
 STYLES = {
-            'Impressionism': 'Monet, impressionist art style, loose brushstrokes, vibrant colors, painted, painted light',
-            'Cubism': 'Cubist art style, Picasso, fragmented forms, geometric shapes, angular lines, limited color palette, artistic',
-            'Surrealism': 'Surrealist art style, dreamlike, abstract art, dream-like artwork, Salvador Dalí, art',
-            'Japanese Ukiyo-e': 'Ukiyo-e art style, Hokusai, woodblock prints, flat areas of color, outlines, nature, Japanese culture',
-            'Art Nouveau': 'Art Nouveau style, Mucha, curving lines, natural forms, ornamental, elegant, stylized',
-            'Folk Art': 'Folk art style, naive art, simple shapes, bright colors, childlike, intuitive, traditional',
-            'Expressionism': 'Expressionist art style, Edvard Munch, distorted forms, dramatic colors, emotional impact, subjective'
-          }
-
+    'Impressionism': 'Monet, impressionist art style, loose brushstrokes, vibrant colors, painted, painted light',
+    'Cubism': 'Cubist art style, Picasso, fragmented forms, geometric shapes, angular lines, limited color palette, artistic',
+    'Surrealism': 'Surrealist art style, dreamlike, abstract art, dream-like artwork, Salvador Dalí, art',
+    'Japanese Ukiyo-e': 'Ukiyo-e art style, Hokusai, woodblock prints, flat areas of color, outlines, nature, Japanese culture',
+    'Art Nouveau': 'Art Nouveau style, Mucha, curving lines, natural forms, ornamental, elegant, stylized',
+    'Folk Art': 'Folk art style, naive art, simple shapes, bright colors, childlike, intuitive, traditional',
+    'Expressionism': 'Expressionist art style, Edvard Munch, distorted forms, dramatic colors, emotional impact, subjective'
+}
 
 load_dotenv('keys.env')
 dataset_path = os.getenv('DATASET_PATH')
@@ -50,7 +49,8 @@ def main():
                     st.session_state['not_saving'] = True
 
                 except:
-                    st.write('There was an error saving to Deep Lake. Ensure your API key and dataset path are correct, then try again.')
+                    st.write(
+                        'There was an error saving to Deep Lake. Ensure your API key and dataset path are correct, then try again.')
                     st.session_state['not_saving'] = True
 
 

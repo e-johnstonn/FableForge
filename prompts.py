@@ -9,7 +9,6 @@ Before the story begins, write a "Page 0: {title}" page. The title should be the
 Format like: Page 0: {title}, Page 1: {text}, etc. Do not write anything else. 
 """
 
-
 get_visual_description_function = [{
     'name': 'get_passage_setting',
     'description': 'Generate and describe the visuals of a passage in a book. Visuals only, no characters, plot, or people. Highly detailed',

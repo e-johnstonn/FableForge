@@ -12,8 +12,6 @@ from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfbase.pdfmetrics import registerFont
 
-
-
 font_path = 'fonts/KGNeatlyPrinted.ttf'
 font_name = 'KGNeatlyPrinted'
 font = TTFont(font_name, font_path)
@@ -25,7 +23,8 @@ title_font = TTFont(title_font_name, title_font_path)
 registerFont(title_font)
 
 
-def add_text_and_convert(image_path, text, output_filename, page_number, image_size=(1360,1024), ): #1174 height after adding white space
+def add_text_and_convert(image_path, text, output_filename, page_number,
+                         image_size=(1360, 1024), ):  # 1174 height after adding white space
     width, height = image_size
 
     # Open image and resize
@@ -68,7 +67,6 @@ def add_text_and_convert(image_path, text, output_filename, page_number, image_s
     style.fontName = font_name
     style.fontSize = 42  # Increase font size
 
-
     text_list = split_paragraph(text, 80)
     for i, element in enumerate(text_list):
         story = [Paragraph(element, style)]
@@ -80,12 +78,10 @@ def add_text_and_convert(image_path, text, output_filename, page_number, image_s
 
     # Add page number in the bottom right corner
     c.setFont(font_name, 16)  # Increase font size
-    c.drawString(width-80, 50, str(page_number))  # Position higher
+    c.drawString(width - 80, 50, str(page_number))  # Position higher
 
     # Save the PDF
     c.save()
-
-
 
 
 def build_title_page(image_path, text, output_filename, image_size=(1360, 1174)):
@@ -148,8 +144,6 @@ def split_paragraph(paragraph, length):
     return result
 
 
-
-
 def build_pdf(pages, result_filename):
     pdf_files = []
     images = []
@@ -166,7 +160,7 @@ def build_pdf(pages, result_filename):
         images.append(image_path)
         temp_file = tempfile.NamedTemporaryFile(suffix='.pdf', delete=False)
         temp_file.close()
-        add_text_and_convert(image_path, text, temp_file.name, page_number=i+1)
+        add_text_and_convert(image_path, text, temp_file.name, page_number=i + 1)
         pdf_files.append(temp_file.name)
 
     merger = PdfMerger()
@@ -180,9 +174,3 @@ def build_pdf(pages, result_filename):
         os.remove(temp_file)
     os.remove('temp.jpg')
     return result_filename
-
-
-
-
-
-

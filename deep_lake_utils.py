@@ -5,8 +5,10 @@ from dotenv import load_dotenv
 
 load_dotenv('keys.env')
 os.environ['ACTIVELOOP_TOKEN'] = os.getenv('ACTIVELOOP_TOKEN')
+
+
 class SaveToDeepLake:
-    def __init__(self, buildbook_instance, name=None, dataset_path=None):
+    def __init__(self, buildbook_instance, dataset_path=None):
         self.dataset_path = dataset_path
         try:
             self.ds = deeplake.load(dataset_path, read_only=False)
@@ -24,6 +26,3 @@ class SaveToDeepLake:
             self.ds.create_tensor('images', htype='image', sample_compression='png')
         for i, prompt in enumerate(self.prompt_list):
             self.ds.append({'prompts': prompt, 'images': deeplake.read(self.images[i])})
-
-
-
